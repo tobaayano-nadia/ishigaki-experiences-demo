@@ -190,3 +190,36 @@ footer {
     border-top: 1px solid #eeeeee;
     margin-top: 100px;
 }
+
+/* ==========================================================================
+   スマートフォン（SP）表示時の横スクロールカルーセル化
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* グリッド全体を横並びの1行に変更 */
+    .thumbnail-grid {
+        display: flex;
+        flex-wrap: nowrap; /* 折り返さずに横一列にする */
+        overflow-x: auto;  /* 横スクロールを有効化 */
+        scroll-snap-type: x mandatory; /* スワイプ時にピタッと止まるようにする */
+        -webkit-overflow-scrolling: touch; /* iOSでのスクロールを滑らかにする */
+        padding-bottom: 15px; /* スクロールバーとリンクの間の余白 */
+        gap: 16px; /* 画像同士の間隔 */
+    }
+
+    /* 各カードの横幅を固定して、画面内に収まりつつ次が見えるサイズに調整 */
+    .grid-cell {
+        width: 75% !important; /* 1枚を画面の75%の幅にし、右側に次の画像がチラ見えする状態にする */
+        flex-shrink: 0; /* 縮まないように固定 */
+        scroll-snap-align: start; /* スワイプした時に左端できれいに止まるようにする */
+        margin-bottom: 0 !important;
+    }
+
+    /* スクロールバーのデザインをスッキリさせる（任意・不要なら消してもOK） */
+    .thumbnail-grid::-webkit-scrollbar {
+        height: 4px;
+    }
+    .thumbnail-grid::-webkit-scrollbar-thumb {
+        background: #e0e0e0;
+        border-radius: 2px;
+    }
+}
