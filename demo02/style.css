@@ -1,6 +1,10 @@
 /* ==========================================================================
    共通・ベースデザイン（PC版）
    ========================================================================== */
+html {
+    scroll-behavior: smooth; /* スムーススクロールを有効化 */
+}
+
 body {
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
     margin: 0;
@@ -35,10 +39,15 @@ main {
     padding: 60px 20px;
 }
 
-/* タブメニュー */
+/* ナビゲーション（固定メニューにしたい場合は適宜調整） */
 .section-experience {
     text-align: center;
     margin-bottom: 60px;
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px 0;
+    z-index: 100;
 }
 
 .section-title {
@@ -77,10 +86,10 @@ main {
     background-color: #333;
 }
 
-/* メインコンテンツエリア */
+/* メインコンテンツエリア（すべて縦に並べて表示） */
 .content-container {
     margin-bottom: 100px;
-    display: none; /* JSで切り替えるため初期状態は非表示（最初のセクションはJSで表示化） */
+    scroll-margin-top: 180px; /* スクロール時の位置調整（メニューの高さ分） */
 }
 
 .category-label {
@@ -163,6 +172,14 @@ footer {
 @media (max-width: 768px) {
     main {
         padding: 40px 15px;
+    }
+
+    .section-experience {
+        scroll-margin-top: 0;
+    }
+
+    .content-container {
+        scroll-margin-top: 140px;
     }
 
     .thumbnail-grid {
