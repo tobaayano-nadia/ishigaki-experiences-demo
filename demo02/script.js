@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // クリックされたタブに active クラスを追加
             tab.classList.add('active');
 
-            // クリックされたタブの移動先（#retreat など）を取得
+            // 移動先のID（#retreat, #activity, #taste）を取得
             const targetId = tab.getAttribute('href');
 
-            // すべてのセクションを一旦非表示にして、対象だけを表示
+            // 対象のセクションだけを表示し、他を非表示にする
             sections.forEach(section => {
                 if (`#${section.id}` === targetId) {
                     section.style.display = 'block';
@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // ページ最上部へ戻るスクロール（必要に応じて）
+            // 切り替え時にスムーズにページ上部へスクロール
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 
-    // 初期状態：最初のタブ（retreat）以外を非表示にする
+    // 初期状態：現在 active なタブ（最初：retreat）のセクションだけを表示
     const activeTab = document.querySelector('.tab-item.active');
     if (activeTab) {
         const initialTarget = activeTab.getAttribute('href');
