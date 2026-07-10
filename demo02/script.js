@@ -2,43 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab-item');
     const sections = document.querySelectorAll('.content-container');
 
-    // タブクリック時の切り替えイベント
-    tabs.forEach(tab => {
-        tab.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            // すべてのタブから active クラスを削除
-            tabs.forEach(t => t.classList.remove('active'));
-            // クリックされたタブに active クラスを追加
-            tab.classList.add('active');
-
-            // 移動先のID（#retreat, #activity, #taste）を取得
-            const targetId = tab.getAttribute('href');
-
-            // 対象のセクションだけを表示し、他を非表示にする
-            sections.forEach(section => {
-                if (`#${section.id}` === targetId) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-
-            // 切り替え時にスムーズにページ上部へスクロール
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    });
-
-    // 初期状態：現在 active なタブ（最初：retreat）のセクションだけを表示
-    const activeTab = document.querySelector('.tab-item.active');
-    if (activeTab) {
-        const initialTarget = activeTab.getAttribute('href');
+    // 画面のスクロール位置に応じて、上部メニューのアクティブ下線を自動で切り替える
+    window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        
         sections.forEach(section => {
-            if (`#${section.id}` === initialTarget) {
-                section.style.display = 'block';
-            } else {
-                section.style.display = 'none';
+            const sectionTop = section.offsetTop;
+            // 判定位置を画面中央〜やや上部に合わせるためのオフセット（200px）
+            if (window.scrollY >= sectionTop - 200) {
+                currentSectionId = section.getAttribute('id');
             }
         });
-    }
+
+        // 該当するセクションのメニューにだけ .active クラス（黒い下線）を付与する
+        if (currentSectionId) {
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('href') === `#${currentSectionId}`) {
+                    tab.classList.add('active');
+                }
+            });
+        }
+    });
 });
