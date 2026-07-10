@@ -1,30 +1,200 @@
 /* ==========================================================================
-   スマートフォン（SP）表示：2段組みのまま横スクロールカルーセル化
+   共通・ベースデザイン（PC版）
+   ========================================================================== */
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #fff;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.nav-right {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* タブメニュー */
+.section-experience {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: normal;
+    color: #b0b0b0;
+    margin-bottom: 20px;
+    letter-spacing: 0.1em;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    border-bottom: 1px solid #e0e0e0;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.tab-item {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    padding-bottom: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+}
+
+/* メインコンテンツエリア */
+.content-container {
+    margin-bottom: 100px;
+    display: none; /* JSで切り替えるため初期状態は非表示（最初のセクションはJSで表示化） */
+}
+
+.category-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+}
+
+.main-feature-img-box {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.main-feature-img-box img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.feature-description {
+    font-size: 16px;
+    margin-bottom: 40px;
+    max-width: 800px;
+}
+
+/* サムネイルグリッド（PC用：4列並び） */
+.thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.grid-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.thumb-box {
+    width: 100%;
+    margin-bottom: 12px;
+    background-color: #f5f5f5;
+}
+
+.thumb-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.thumb-caption {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.thumb-link {
+    margin-top: auto;
+}
+
+.text-link {
+    font-size: 14px;
+    text-decoration: underline;
+    color: #333;
+    font-weight: 500;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* ==========================================================================
+   スマートフォン（SP）表示：1段（4枚）がそれぞれ横に心地よくスライド
    ========================================================================== */
 @media (max-width: 768px) {
-    /* グリッド全体を縦2行の折り返し表示にし、横スクロールを有効化 */
-    .thumbnail-grid {
-        display: flex;
-        flex-direction: column; /* 縦方向に並べるベースを作る */
-        flex-wrap: wrap;       /* 横に溢れたら右側に折り返す */
-        height: 380px;         /* ★重要：2段分の高さ（カードの高さに合わせて適宜微調整してください） */
-        overflow-x: auto;      /* 横スクロールを有効にする */
-        scroll-snap-type: x mandatory; /* スワイプ時にピタッと止まる */
-        -webkit-overflow-scrolling: touch;
-        gap: 16px;             /* カード同士の上下左右の間隔 */
-        padding-bottom: 15px;
+    main {
+        padding: 40px 15px;
     }
 
-    /* 各カードが縮まず、綺麗な2段の列（縦に2個並んだ塊）を作るための設定 */
+    .thumbnail-grid {
+        display: flex !important;
+        flex-direction: row !important;   
+        flex-wrap: nowrap !important;     
+        height: auto !important;          
+        overflow-x: auto !important;      
+        scroll-snap-type: x mandatory;    
+        -webkit-overflow-scrolling: touch; 
+        gap: 16px;                        
+        padding-bottom: 15px;             
+    }
+
     .grid-cell {
-        width: 75% !important; /* 1画面に1列（縦2つ分）が綺麗に収まり、右側がチラ見えする幅 */
-        height: calc(50% - 8px); /* 高さを全体の半分（2段分）にする */
-        flex-shrink: 0;        /* 横に潰れないように固定 */
-        scroll-snap-align: start; /* スワイプした時に左端でピタッと止まる */
+        width: 46% !important; 
+        height: auto !important;
+        flex-shrink: 0 !important;        
+        scroll-snap-align: start;         
         margin-bottom: 0 !important;
     }
 
-    /* スクロールバーのデザインをスッキリさせる */
+    .thumb-caption {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 4px;
+    }
+
+    .text-link {
+        font-size: 11px;
+    }
+
     .thumbnail-grid::-webkit-scrollbar {
         height: 4px;
     }
