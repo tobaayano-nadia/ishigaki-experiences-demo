@@ -157,39 +157,39 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）表示：stay・explore共通で縦2段・1列ずつカチッとスクロール
+   スマートフォン（SP）表示：王道の「1段・横並び」スクロールカルーセル
    ========================================================================== */
 @media (max-width: 768px) {
     main {
         padding: 40px 15px;
     }
 
-    /* 縦方向に折り返して、横スクロールさせるベース設定 */
+    /* 縦の折り返しを廃止し、きれいな横1行の並びに変更 */
     .thumbnail-grid {
         display: flex;
-        flex-direction: column; 
-        flex-wrap: wrap;       
-        height: 460px;         /* カード2枚＋文字が縦に2つ並ぶ全体の高さ */
+        flex-direction: row;   /* 横一列に並べる */
+        flex-wrap: nowrap;     /* 絶対に縦に折り返さない */
+        height: auto;          /* 高さを自動にして崩れを防止 */
         overflow-x: auto;      /* 横スクロールを有効にする */
-        scroll-snap-type: x mandatory; /* スクロールした時にピタッと止める */
-        -webkit-overflow-scrolling: touch;
-        gap: 16px 12px;        /* 上下間隔 16px / 左右間隔 12px */
-        padding-bottom: 15px;
+        scroll-snap-type: x mandatory; /* スワイプ時に1枚ずつピタッと止まる */
+        -webkit-overflow-scrolling: touch; /* iOSの滑らかなスクロール */
+        gap: 16px;             /* 画像同士の横の隙間 */
+        padding-bottom: 20px;  /* スクロールバーと文字の隙間 */
     }
 
-    /* 横幅を画面の約46%にすることで、1画面に2列（4枚分）が綺麗に収まります */
+    /* 1画面に2枚弱が見えるサイズ（約46%）にし、右側をチラ見せさせてスクロールを促す */
     .grid-cell {
-        width: 46% !important; 
-        height: calc(50% - 8px); /* 高さを均等に2分割 */
-        flex-shrink: 0;        
-        scroll-snap-align: start; /* スワイプした時に各列の左端でカチッと止める */
+        width: 46% !important; /* 横に約2枚並び、3枚目・4枚目は右側に隠れてカルーセルになります */
+        height: auto !important;
+        flex-shrink: 0;        /* 横幅が絶対に縮まないように固定 */
+        scroll-snap-align: start; /* スワイプした時に各画像の左端でカチッと止まる */
         margin-bottom: 0 !important;
     }
 
-    /* 文字サイズ等の微調整 */
+    /* スマホ用に文字サイズを微調整 */
     .thumb-caption {
         font-size: 12px;
-        line-height: 1.3;
+        line-height: 1.4;
         margin-bottom: 4px;
     }
 
@@ -197,7 +197,7 @@ footer {
         font-size: 11px;
     }
 
-    /* スクロールバーのデザイン */
+    /* スクロールバーのデザインを細くスッキリと */
     .thumbnail-grid::-webkit-scrollbar {
         height: 4px;
     }
