@@ -157,7 +157,7 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）表示：縦2段のまま、1列（1項目）ずつカチッとスクロール
+   スマートフォン（SP）表示：stay・explore共通で縦2段・1列ずつカチッとスクロール
    ========================================================================== */
 @media (max-width: 768px) {
     main {
@@ -171,10 +171,38 @@ footer {
         flex-wrap: wrap;       
         height: 460px;         /* カード2枚＋文字が縦に2つ並ぶ全体の高さ */
         overflow-x: auto;      /* 横スクロールを有効にする */
-        scroll-snap-type: x mandatory; /* ★重要：スクロールを強制的にピタッと止める */
+        scroll-snap-type: x mandatory; /* スクロールした時にピタッと止める */
         -webkit-overflow-scrolling: touch;
         gap: 16px 12px;        /* 上下間隔 16px / 左右間隔 12px */
         padding-bottom: 15px;
     }
 
-    /* 横
+    /* 横幅を画面の約46%にすることで、1画面に2列（4枚分）が綺麗に収まります */
+    .grid-cell {
+        width: 46% !important; 
+        height: calc(50% - 8px); /* 高さを均等に2分割 */
+        flex-shrink: 0;        
+        scroll-snap-align: start; /* スワイプした時に各列の左端でカチッと止める */
+        margin-bottom: 0 !important;
+    }
+
+    /* 文字サイズ等の微調整 */
+    .thumb-caption {
+        font-size: 12px;
+        line-height: 1.3;
+        margin-bottom: 4px;
+    }
+
+    .text-link {
+        font-size: 11px;
+    }
+
+    /* スクロールバーのデザイン */
+    .thumbnail-grid::-webkit-scrollbar {
+        height: 4px;
+    }
+    .thumbnail-grid::-webkit-scrollbar-thumb {
+        background: #e0e0e0;
+        border-radius: 2px;
+    }
+}
