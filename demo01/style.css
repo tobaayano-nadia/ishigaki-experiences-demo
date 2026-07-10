@@ -157,19 +157,40 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）表示：2段組みのまま横スクロールカルーセル化
+   スマートフォン（SP）表示：王道の1段（1行）横スクロールカルーセル化
    ========================================================================== */
 @media (max-width: 768px) {
     main {
         padding: 40px 15px;
     }
 
-    /* グリッド全体を縦2行の折り返し表示にし、横スクロールを有効化 */
+    /* グリッドから横1列のフレックスに変更 */
     .thumbnail-grid {
         display: flex;
-        flex-direction: column; /* 縦方向に並べる */
-        flex-wrap: wrap;       /* 横に溢れたら右側に折り返す */
-        height: 520px;         /* ★重要：2段分の全体の高さ（表示が崩れる場合はここを微調整してください） */
+        flex-direction: row;   /* 横並びにする */
+        flex-wrap: nowrap;     /* 絶対に折り返さない */
+        height: auto;          /* 高さを自動にして崩れを防止 */
         overflow-x: auto;      /* 横スクロールを有効にする */
-        scroll-snap-type: x mandatory; /* スワイプ時にピタッと止まる */
-        -webkit-overflow-scrolling: touch; /* スムーズスクロール */
+        scroll-snap-type: x mandatory; /* スワイプ時にピタッと吸い付くように止まる */
+        -webkit-overflow-scrolling: touch; /* iOSでのスムーズスクロール */
+        gap: 16px;             /* 画像同士の横の隙間 */
+        padding-bottom: 20px;   /* スクロールバーと文字の隙間 */
+    }
+
+    /* 各カードが潰れず、1枚ずつ綺麗に見せるための設定 */
+    .grid-cell {
+        width: 75% !important; /* 画面幅の75%にし、右側に次のカードをチラ見せさせる */
+        flex-shrink: 0;        /* 横幅が縮まないように固定 */
+        scroll-snap-align: start; /* スワイプした時に左端でカチッと止まる */
+        margin-bottom: 0 !important;
+    }
+
+    /* スクロールバーを細くしてスタイリッシュにする */
+    .thumbnail-grid::-webkit-scrollbar {
+        height: 4px;
+    }
+    .thumbnail-grid::-webkit-scrollbar-thumb {
+        background: #e0e0e0;
+        border-radius: 2px;
+    }
+}
