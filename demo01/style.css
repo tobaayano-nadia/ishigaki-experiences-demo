@@ -157,36 +157,36 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）表示：王道の「1段・横並び」スクロールカルーセル
+   スマートフォン（SP）表示：各段がそれぞれ「独立して」横に心地よくスライド
    ========================================================================== */
 @media (max-width: 768px) {
     main {
         padding: 40px 15px;
     }
 
-    /* 縦の折り返しを廃止し、きれいな横1行の並びに変更 */
+    /* 各ブロックを横1列の独立したカルーセルボックスにする設定 */
     .thumbnail-grid {
-        display: flex;
-        flex-direction: row;   /* 横一列に並べる */
-        flex-wrap: nowrap;     /* 絶対に縦に折り返さない */
-        height: auto;          /* 高さを自動にして崩れを防止 */
-        overflow-x: auto;      /* 横スクロールを有効にする */
-        scroll-snap-type: x mandatory; /* スワイプ時に1枚ずつピタッと止まる */
-        -webkit-overflow-scrolling: touch; /* iOSの滑らかなスクロール */
-        gap: 16px;             /* 画像同士の横の隙間 */
-        padding-bottom: 20px;  /* スクロールバーと文字の隙間 */
+        display: flex !important;
+        flex-direction: row !important;   /* 横一列に並べる */
+        flex-wrap: nowrap !important;     /* 絶対に折り返さない */
+        height: auto !important;          /* 高さをコンテンツ自動にして崩れを完全に防止 */
+        overflow-x: auto !important;      /* 横スクロールをそれぞれの段で有効化 */
+        scroll-snap-type: x mandatory;    /* 各段で1枚ずつピタッと綺麗に止まる */
+        -webkit-overflow-scrolling: touch; /* iOSでの滑らかな操作感 */
+        gap: 16px;                        /* 画像同士の横の隙間 */
+        padding-bottom: 15px;             /* スクロールバーと下の余白 */
     }
 
-    /* 1画面に2枚弱が見えるサイズ（約46%）にし、右側をチラ見せさせてスクロールを促す */
+    /* 1画面に2枚弱が見える絶妙なサイズ（46%）にして、右側のチラ見せを維持 */
     .grid-cell {
-        width: 46% !important; /* 横に約2枚並び、3枚目・4枚目は右側に隠れてカルーセルになります */
+        width: 46% !important; 
         height: auto !important;
-        flex-shrink: 0;        /* 横幅が絶対に縮まないように固定 */
-        scroll-snap-align: start; /* スワイプした時に各画像の左端でカチッと止まる */
+        flex-shrink: 0 !important;        /* 横幅を絶対に縮ませない */
+        scroll-snap-align: start;         /* スワイプ時に左端にカチッと吸い付く */
         margin-bottom: 0 !important;
     }
 
-    /* スマホ用に文字サイズを微調整 */
+    /* スマホ用の文字サイズ調整 */
     .thumb-caption {
         font-size: 12px;
         line-height: 1.4;
@@ -197,7 +197,7 @@ footer {
         font-size: 11px;
     }
 
-    /* スクロールバーのデザインを細くスッキリと */
+    /* スクロールバーのデザイン */
     .thumbnail-grid::-webkit-scrollbar {
         height: 4px;
     }
