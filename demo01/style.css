@@ -82,7 +82,7 @@ main {
 }
 
 /* ==========================================================================
-   PC・SP共通：1行横スクロール ＆ 1枚ずつカチッと止まるスナップアニメーション
+   PC版：1行に5枚 × 2行（2段組み）グリッド配置
    ========================================================================== */
 .experience-block {
     margin-bottom: 60px;
@@ -91,32 +91,23 @@ main {
 .block-title {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     letter-spacing: 0.05em;
     color: #111;
 }
 
-/* コンテナ：1行（1段）固定 ＆ スナップ設定 */
+/* PC：1行に5枚並べるCSS Grid設定 */
 .card-grid {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory;         /* ★横方向に強制ピタッとストップ */
-    scroll-behavior: smooth;               /* スムースアニメーション */
-    -webkit-overflow-scrolling: touch;     /* iOSの滑らかな慣性スクロール */
-    gap: 16px;
-    padding-bottom: 16px;
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important; /* ★1行に5枚配置 */
+    gap: 16px !important;
 }
 
-/* カード要素：1行に収まる正方形アイテム */
 .card-item {
     position: relative;
-    width: 220px !important;              /* PCでのカード1枚あたりの横幅 */
-    height: 220px !important;             /* 正方形サイズ */
-    flex-shrink: 0 !important;            /* つぶれ防止 */
-    scroll-snap-align: start;             /* ★スクロール停止位置を各カードの左端に合わせる */
-    scroll-snap-stop: always;             /* ★フリック時も1枚（1列）ずつしっかり止まる */
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important; /* ★完全な正方形 */
     overflow: hidden;
     background-color: #eee;
     cursor: pointer;
@@ -135,7 +126,7 @@ main {
     transform: scale(1.06);
 }
 
-/* グラデーションオーバーレイ */
+/* 画像下部のグラデーションオーバーレイ */
 .card-item::after {
     content: '';
     position: absolute;
@@ -150,27 +141,11 @@ main {
     left: 14px;
     right: 14px;
     color: #fff;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 500;
     z-index: 2;
     line-height: 1.35;
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-}
-
-/* スクロールバーのデザイン */
-.card-grid::-webkit-scrollbar {
-    height: 6px;
-}
-.card-grid::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 3px;
-}
-.card-grid::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 3px;
-}
-.card-grid::-webkit-scrollbar-thumb:hover {
-    background: #999;
 }
 
 /* ==========================================================================
@@ -344,7 +319,7 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）用調整（カードを画面幅の約45%にして見切れ演出）
+   スマートフォン（SP）表示：縦2段組みで1列（2枚）ずつカチッと止まるカルーセル
    ========================================================================== */
 @media (max-width: 768px) {
     header {
@@ -364,17 +339,34 @@ footer {
         font-size: 32px;
     }
 
-    /* スマホ画面に合わせてカード幅と高さをアスペクト比正方形で調整 */
+    /* SP：縦2段に折り返して横スクロールさせるコンテナ設定 */
+    .card-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        height: 360px !important;            /* 縦2段分の正方形高さ */
+        overflow-x: auto !important;         /* 横スクロール有効 */
+        scroll-snap-type: x mandatory;       /* ★1列（縦2枚）ずつピタッと止まる */
+        -webkit-overflow-scrolling: touch;
+        gap: 12px !important;
+        padding-bottom: 15px;
+    }
+
+    /* SP：上下2段のカードサイズ */
     .card-item {
-        width: 155px !important;             /* スマホで2枚＋チラ見せに最適な幅 */
-        height: 155px !important;
+        width: 45% !important;               /* 右側が見切れる絶妙な幅 */
+        height: calc(50% - 6px) !important;  /* 高さを上下2等分 */
+        aspect-ratio: auto !important;
+        flex-shrink: 0 !important;
+        scroll-snap-align: start;            /* ★スワイプ時に1列ずつ左端に固定 */
+        scroll-snap-stop: always;
     }
 
     .card-label {
-        font-size: 12px;
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
+        font-size: 11.5px;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
     }
 
     .modal-card {
