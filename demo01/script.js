@@ -1,116 +1,397 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --------------------------------------------------
-    // 1. モーダル機能の制御
-    // --------------------------------------------------
-    const cardItems = document.querySelectorAll('.card-item');
-    const modalContainer = document.getElementById('modal-container');
-    const modalClose = document.getElementById('modal-close');
-    
-    const modalImg = document.getElementById('modal-img');
-    const modalTime = document.getElementById('modal-time');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modal-desc');
-    const modalTags = document.getElementById('modal-tags');
-    const modalLink = document.getElementById('modal-link');
+/* ==========================================================================
+   ベース設定
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+}
 
-    cardItems.forEach(card => {
-        card.addEventListener('click', () => {
-            const title = card.getAttribute('data-title');
-            const time = card.getAttribute('data-time');
-            const desc = card.getAttribute('data-desc');
-            const imgSrc = card.getAttribute('data-img');
-            const tagsStr = card.getAttribute('data-tags');
-            const linkHref = card.getAttribute('data-link');
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #fff;
+    line-height: 1.6;
+}
 
-            modalImg.src = imgSrc;
-            modalTitle.textContent = title || '';
-            modalTime.textContent = time || '';
-            modalDesc.textContent = desc || '';
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
 
-            modalTags.innerHTML = '';
-            if (tagsStr) {
-                const tagsArray = tagsStr.split(',');
-                tagsArray.forEach(tag => {
-                    const span = document.createElement('span');
-                    span.className = 'modal-tag-chip';
-                    span.textContent = tag.trim();
-                    modalTags.appendChild(span);
-                });
-            }
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
 
-            if (linkHref) {
-                modalLink.href = linkHref;
-                modalLink.style.display = 'inline-flex';
-            } else {
-                modalLink.style.display = 'none';
-            }
+.nav-right {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
 
-            modalContainer.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    });
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
 
-    const closeModal = () => {
-        modalContainer.classList.remove('active');
-        document.body.style.overflow = '';
-    };
+/* ==========================================================================
+   ヒーロービジュアル（KV）
+   ========================================================================== */
+.hero-section {
+    margin-bottom: 60px;
+}
 
-    if (modalClose) modalClose.addEventListener('click', closeModal);
-    if (modalContainer) {
-        modalContainer.addEventListener('click', (e) => {
-            if (e.target === modalContainer) closeModal();
-        });
+.hero-img-box {
+    position: relative;
+    width: 100%;
+    max-height: 550px;
+    overflow: hidden;
+}
+
+.hero-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay-text {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.hero-overlay-text h1 {
+    font-size: 48px;
+    margin: 0 0 10px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.hero-overlay-text p {
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   PC・SP共通：1行横スクロール＆1枚ずつ止まるスナップカルーセル設定
+   ========================================================================== */
+.experience-block {
+    margin-bottom: 60px;
+}
+
+.block-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+    color: #111;
+}
+
+/* 1行ごとに絶対固定する横スクロールコンテナ（PC/SP共通） */
+.card-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;        /* ★折り返しを完全に禁止 */
+    overflow-x: auto !important;         /* ★横スクロールを強制有効 */
+    scroll-snap-type: x mandatory;       /* ★1枚ずつピタッと止まるスナップ設定 */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px !important;
+    padding-bottom: 12px;
+}
+
+/* PC時の1枚あたりのカードサイズ（ゆったり大きく表示） */
+.card-item {
+    position: relative;
+    width: 280px !important;            /* PC時の正方形サイズ（横幅280px） */
+    height: 280px !important;           /* アスペクト比1:1 */
+    flex-shrink: 0 !important;          /* 潰れ防止 */
+    scroll-snap-align: start !important;/* スライダー停止位置 */
+    scroll-snap-stop: always !important;/* 1枚ずつ確実にピタッとストップ */
+    overflow: hidden;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.card-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.card-item:hover img {
+    transform: scale(1.06);
+}
+
+.card-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+}
+
+.card-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 2;
+    line-height: 1.35;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* スクロールバー装飾 */
+.card-grid::-webkit-scrollbar {
+    height: 6px;
+}
+.card-grid::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+.card-grid::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+.card-grid::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* ==========================================================================
+   モーダルUIスタイル
+   ========================================================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    height: 480px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    animation: modalScaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScaleUp {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close-circle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    transition: background-color 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.modal-close-circle:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.modal-bg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.modal-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.3) 40%,
+        rgba(0, 0, 0, 0.85) 85%,
+        rgba(0, 0, 0, 0.95) 100%
+    );
+}
+
+.modal-content-inner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 36px 40px;
+    z-index: 10;
+    color: #fff;
+}
+
+.modal-sub-info {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 8px;
+    font-weight: 300;
+}
+
+.modal-main-title {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.modal-description {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 620px;
+    margin: 0 0 20px;
+}
+
+.modal-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.modal-tag-chip {
+    font-size: 11.5px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+}
+
+.modal-action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 24px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.modal-action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* ==========================================================================
+   スマホ（SP）画面調整
+   ========================================================================== */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
     }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalContainer && modalContainer.classList.contains('active')) {
-            closeModal();
-        }
-    });
+    main {
+        padding: 20px 15px 60px;
+    }
 
-    // --------------------------------------------------
-    // 2. 自動横スクロール（自動カルーセルアニメーション）
-    // --------------------------------------------------
-    const cardGrids = document.querySelectorAll('.card-grid');
+    .hero-overlay-text {
+        bottom: 20px;
+        left: 20px;
+    }
 
-    cardGrids.forEach(grid => {
-        let isUserInteracting = false;
-        let scrollTimer = null;
+    .hero-overlay-text h1 {
+        font-size: 32px;
+    }
 
-        const autoScroll = () => {
-            if (isUserInteracting) return;
+    /* スマホ画面用にカード幅を155pxに調整（2枚＋見切れ表示） */
+    .card-item {
+        width: 155px !important;
+        height: 155px !important;
+    }
 
-            const firstCard = grid.querySelector('.card-item');
-            if (!firstCard) return;
+    .card-label {
+        font-size: 11px;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+    }
 
-            // カード1枚の幅 + カノジョの間隔(gap=16px)のスクロール移動量
-            const cardWidth = firstCard.offsetWidth + 16;
-            const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
+    .modal-card {
+        height: 520px;
+        border-radius: 16px;
+    }
 
-            // スクロール位置が右端に達した場合は先頭（0）へ戻し、それ以外は1枚分右へ移動
-            if (grid.scrollLeft >= maxScrollLeft - 10) {
-                grid.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                grid.scrollBy({ left: cardWidth, behavior: 'smooth' });
-            }
-        };
+    .modal-content-inner {
+        padding: 24px 20px;
+    }
 
-        // 3.5秒（3500ms）ごとに自動スクロールを実行
-        let autoScrollInterval = setInterval(autoScroll, 3500);
+    .modal-main-title {
+        font-size: 22px;
+    }
 
-        // ユーザーが手動スクロール・スワイプした際は自動スライドを一時停止
-        grid.addEventListener('touchstart', () => { isUserInteracting = true; }, { passive: true });
-        grid.addEventListener('mouseenter', () => { isUserInteracting = true; });
-
-        grid.addEventListener('mouseleave', () => {
-            isUserInteracting = false;
-        });
-
-        grid.addEventListener('touchend', () => {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(() => {
-                isUserInteracting = false;
-            }, 4000); // 手動スワイプ後、4秒間操作がなければ自動スライドを再開
-        }, { passive: true });
-    });
-});
+    .modal-description {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+}
