@@ -45,7 +45,7 @@ main {
 .hero-img-box {
     position: relative;
     width: 100%;
-    max-height: 600px;
+    max-height: 550px;
     overflow: hidden;
 }
 
@@ -72,45 +72,38 @@ main {
 }
 
 .hero-overlay-text p {
-    font-size: 16px;
+    font-size: 15px;
     margin: 0;
-    letter-spacing: 0.05em;
+    line-height: 1.5;
 }
 
 /* ==========================================================================
-   ギャラリーセクション＆オーバーレイカード
+   PC版：正方形ギャラリーパネル（4列配置）
    ========================================================================== */
 .experience-block {
     margin-bottom: 60px;
 }
 
 .block-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
-    text-transform: lowercase;
+    margin-bottom: 24px;
     letter-spacing: 0.05em;
+    color: #111;
 }
 
-/* PC：グリッド配置 */
 .card-grid {
     display: grid;
-    gap: 16px;
-}
-
-.card-grid.col-4 {
     grid-template-columns: repeat(4, 1fr);
-}
-
-.card-grid.col-5 {
-    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
 }
 
 .card-item {
     position: relative;
-    aspect-ratio: 1 / 1; /* 正方形カード */
+    aspect-ratio: 1 / 1; /* 正方形に固定 */
     overflow: hidden;
     background-color: #eee;
+    cursor: pointer;
 }
 
 .card-item img {
@@ -122,29 +115,133 @@ main {
 }
 
 .card-item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
-/* 画像内オーバーレイテキスト */
+/* 画像下部の白文字グラデーションオーバーレイ */
 .card-item::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 70%);
     pointer-events: none;
 }
 
 .card-label {
     position: absolute;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     z-index: 2;
-    line-height: 1.3;
+    line-height: 1.4;
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* ==========================================================================
+   モーダルウィンドウ（Pop-up）スタイル
+   ========================================================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: modalUp 0.3s ease forwards;
+}
+
+@keyframes modalUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+    line-height: 1;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 640px) {
+    .modal-body {
+        flex-direction: row;
+    }
+}
+
+.modal-img-wrapper {
+    flex: 1.2;
+    background-color: #000;
+    max-height: 450px;
+}
+
+.modal-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.modal-info {
+    flex: 1;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-info h3 {
+    font-size: 20px;
+    margin: 0 0 12px;
+    color: #111;
+}
+
+.modal-info p {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 24px;
+    line-height: 1.6;
+}
+
+.modal-link-btn {
+    display: inline-block;
+    color: #111;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 footer {
@@ -156,11 +253,15 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）対応：横スクロールカルーセル化
+   スマートフォン（SP）表示：上下2段組みのまま横スクロールカルーセル化
    ========================================================================== */
 @media (max-width: 768px) {
     header {
         padding: 15px 20px;
+    }
+
+    main {
+        padding: 20px 15px 60px;
     }
 
     .hero-overlay-text {
@@ -172,25 +273,41 @@ footer {
         font-size: 32px;
     }
 
-    .hero-overlay-text p {
-        font-size: 13px;
-    }
-
-    .card-grid.col-4,
-    .card-grid.col-5 {
+    /* 縦方向に折り返して上下2段にするコンテナ構成 */
+    .card-grid {
         display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory;
+        flex-direction: column !important; /* 縦方向にアイテムを流す */
+        flex-wrap: wrap !important;       /* 横に溢れた分を右側に折り返す */
+        height: 360px !important;         /* ★縦2段分（正方形2つ＋間隔）の固定高さ */
+        overflow-x: auto !important;      /* 横スクロール有効 */
+        scroll-snap-type: x mandatory;    /* ピタッと1列ずつ止まる */
         -webkit-overflow-scrolling: touch;
-        gap: 12px;
-        padding-bottom: 10px;
+        gap: 12px !important;
+        padding-bottom: 15px;
     }
 
+    /* 上下2段（縦に2枚ずつ並ぶ列）のサイズ計算 */
     .card-item {
-        width: 42% !important;
-        flex-shrink: 0 !important;
-        scroll-snap-align: start;
+        width: 45% !important;            /* 横幅45%にすることで右側がチラ見えする */
+        height: calc(50% - 6px) !important;/* 全体の高さを半分（2段）にする */
+        aspect-ratio: auto !important;     /* 自動調整 */
+        flex-shrink: 0 !important;        /* つぶれ防止 */
+        scroll-snap-align: start;         /* スワイプでカチッと止まる */
+    }
+
+    .card-label {
+        font-size: 12px;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
+    /* スクロールバーデザイン */
+    .card-grid::-webkit-scrollbar {
+        height: 4px;
+    }
+    .card-grid::-webkit-scrollbar-thumb {
+        background: #e0e0e0;
+        border-radius: 2px;
     }
 }
