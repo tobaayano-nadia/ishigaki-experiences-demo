@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>seven x seven | experiences</title>
+    <title>seven x seven | Experiences</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -14,10 +15,10 @@
     </header>
 
     <main>
-        <!-- メインヒーロービジュアル -->
+        <!-- メインヒーロービジュアル（※KVはクリック不可） -->
         <section class="hero-section">
             <div class="hero-img-box">
-                <img src="images/kv.jpg" alt="Experiences">
+                <img src="images/explore_kv.jpg" alt="Experiences">
                 <div class="hero-overlay-text">
                     <h1>Experiences.</h1>
                     <p>プールやサウナで心と体をときほぐす。<br>ゆったりと流れる時間の中で、自分らしく過ごす体験を。</p>
@@ -25,139 +26,341 @@
             </div>
         </section>
 
-        <!-- ① retreat & wellness セクション（8枚構成） -->
+        <!-- ① 朝セクション -->
         <section class="experience-block">
-            <h2 class="block-title">ある1日の朝 ｜5:30 – 12:00</h2>
+            <h2 class="block-title">ある1日の朝 ｜ 5:30 - 12:00</h2>
             <div class="card-grid col-4">
-                <div class="card-item">
-                    <img src="images/morning_01.jpg" alt="">
+                <div class="card-item" 
+                     data-title="サンライズSUPヨガ" 
+                     data-time="5:30 - 8:00 · infinity pool"
+                     data-desc="朝の静かな海やプールでSUPヨガを行い、心身をフレッシュに目覚めさせます。" 
+                     data-img="images/morning_01.jpg" 
+                     data-tags="SUP,ヨガ,要予約"
+                     data-link="#">
+                    <img src="images/morning_01.jpg" alt="サンライズSUPヨガ">
                     <span class="card-label">サンライズSUPヨガ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_02.jpg" alt="">
-                    <span class="card-label">朝サウナで始まる１日</span>
+                
+                <div class="card-item" 
+                     data-title="朝サウナで始める1日" 
+                     data-time="7:00 - 12:00 · spa floor"
+                     data-desc="TTNE監修のフィンランド式サウナ。85°Cの熱気に、9°C・16.5°Cの2種類の水風呂。外気浴スペースからはプールと海が広がる。" 
+                     data-img="images/morning_02.jpg" 
+                     data-tags="85°C,水風呂 2種,無料"
+                     data-link="#">
+                    <img src="images/morning_02.jpg" alt="朝サウナで始める1日">
+                    <span class="card-label">朝サウナで始める1日</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_03.jpg" alt="">
+
+                <div class="card-item" 
+                     data-title="朝日を浴びながらテラスヨガ" 
+                     data-time="6:30 - 9:00 · balcony"
+                     data-desc="朝の光を浴びながらバルコニーでゆったりとストレッチやヨガを楽しめます。" 
+                     data-img="images/morning_03.jpg" 
+                     data-tags="ヨガ,客室テラス,無料"
+                     data-link="#">
+                    <img src="images/morning_03.jpg" alt="朝日を浴びながらテラスヨガ">
                     <span class="card-label">朝日を浴びながらテラスヨガ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_04.jpg" alt="">
+
+                <div class="card-item" 
+                     data-title="ビーチで朝散歩" 
+                     data-time="6:00 - 9:00 · beach side"
+                     data-desc="波の音を聞きながら澄み切った朝のビーチを穏やかに散歩。" 
+                     data-img="images/morning_04.jpg" 
+                     data-tags="ビーチ,自然,散策"
+                     data-link="#">
+                    <img src="images/morning_04.jpg" alt="ビーチで朝散歩">
                     <span class="card-label">ビーチで朝散歩</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_05.jpg" alt="">
+
+                <div class="card-item" 
+                     data-title="朝から、泡で乾杯" 
+                     data-time="7:00 - 11:00 · restaurant BATIDA"
+                     data-desc="特別な朝にふさわしい爽やかなスパークリングワインや特製朝食を楽しめます。" 
+                     data-img="images/morning_05.jpg" 
+                     data-tags="朝食,ワイン,BATIDA"
+                     data-link="#">
+                    <img src="images/morning_05.jpg" alt="朝から、泡で乾杯">
                     <span class="card-label">朝から、泡で乾杯</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_06.jpg" alt="">
+
+                <div class="card-item" 
+                     data-title="夜明けの潮風と、走る" 
+                     data-time="5:30 - 8:30 · coastal route"
+                     data-desc="涼しい早朝の海沿いをランニングして、心身ともに最高のスタートを。" 
+                     data-img="images/morning_06.jpg" 
+                     data-tags="ランニング,海岸線,アクティブ"
+                     data-link="#">
+                    <img src="images/morning_06.jpg" alt="夜明けの潮風と、走る">
                     <span class="card-label">夜明けの潮風と、走る</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_07.jpg" alt="">
+
+                <div class="card-item" 
+                     data-title="ゆっくり身支度できる朝" 
+                     data-time="all day · guest room"
+                     data-desc="充実した高級アメニティを備えたお部屋で、自分自身のペースで整える朝。" 
+                     data-img="images/morning_07.jpg" 
+                     data-tags="客室,アメニティ,リラックス"
+                     data-link="#">
+                    <img src="images/morning_07.jpg" alt="ゆっくり身支度できる朝">
                     <span class="card-label">ゆっくり身支度できる朝</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/morning_08.jpg" alt="">
+
+                <div class="card-item" 
+                     data-title="朝からビュッフェ" 
+                     data-time="7:00 - 10:30 · restaurant BATIDA"
+                     data-desc="地元の新鮮な島野菜と旬の食材をふんだんに使用した自慢の朝食ビュッフェ。" 
+                     data-img="images/morning_08.jpg" 
+                     data-tags="ビュッフェ,島野菜,地産地消"
+                     data-link="#">
+                    <img src="images/morning_08.jpg" alt="朝からビュッフェ">
                     <span class="card-label">朝からビュッフェ</span>
                 </div>
             </div>
         </section>
 
-        <!-- ② activity & explore セクション（10枚構成） -->
+        <!-- ② 昼セクション -->
         <section class="experience-block">
-            <h2 class="block-title">ある1日の昼 ｜12:00 – 18:00</h2>
+            <h2 class="block-title">ある1日の昼 ｜ 12:00 - 18:00</h2>
             <div class="card-grid col-5">
-                <div class="card-item">
-                    <img src="images/afternoon_01.jpg" alt="">
+                <div class="card-item" 
+                     data-title="インフィニティプール" 
+                     data-time="10:00 - 18:00 · pool deck"
+                     data-desc="広々としたプールサイドで地平線と一体になるリゾート体験を。" 
+                     data-img="images/afternoon_01.jpg" 
+                     data-tags="インフィニティ,絶景,要温水"
+                     data-link="#">
+                    <img src="images/afternoon_01.jpg" alt="インフィニティプール">
                     <span class="card-label">インフィニティプール</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_02.jpg" alt="">
+                <div class="card-item" 
+                     data-title="テラスでBBQを楽しむ" 
+                     data-time="12:00 - 15:00 · outdoor terrace"
+                     data-desc="絶景広がる開放的なテラス空間で楽しむ最高級和牛と島食材の本格バーベキュー。" 
+                     data-img="images/afternoon_02.jpg" 
+                     data-tags="BBQ,石垣牛,予約制"
+                     data-link="#">
+                    <img src="images/afternoon_02.jpg" alt="テラスでBBQを楽しむ">
                     <span class="card-label">テラスでBBQを楽しむ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_03.jpg" alt="">
-                    <span class="card-label">予定なしも一番の贅沢</span>
+                <div class="card-item" 
+                     data-title="お部屋でゆったり過ごす" 
+                     data-time="all day · guest room"
+                     data-desc="心地よい風が通り抜ける室内で、上質な家具と音響に包まれる午後の休日。" 
+                     data-img="images/afternoon_03.jpg" 
+                     data-tags="客室,オーシャンビュー,静寂"
+                     data-link="#">
+                    <img src="images/afternoon_03.jpg" alt="お部屋でゆったり過ごす">
+                    <span class="card-label">お部屋でゆったり過ごす</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_04.jpg" alt="">
-                    <span class="card-label">お部屋でジャグジー</span>
+                <div class="card-item" 
+                     data-title="夕日を眺めるジャグジー" 
+                     data-time="16:00 - 19:00 · terrace jacuzzi"
+                     data-desc="空が茜色に染まるトワイライトタイム、ジャグジーで心地よい湯あみを。" 
+                     data-img="images/afternoon_04.jpg" 
+                     data-tags="ジャグジー,サンセット,プライベート"
+                     data-link="#">
+                    <img src="images/afternoon_04.jpg" alt="夕日を眺めるジャグジー">
+                    <span class="card-label">夕日を眺めるジャグジー</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_05.jpg" alt="">
-                    <span class="card-label">オリジナルカクテル</span>
+                <div class="card-item" 
+                     data-title="トロピカルカクテル" 
+                     data-time="11:00 - 23:00 · Red. Bar"
+                     data-desc="旬のマンゴーやパッションフルーツをあしらった至極の特製南国カクテル。" 
+                     data-img="images/afternoon_05.jpg" 
+                     data-tags="カクテル,特製南国フルーツ,Red."
+                     data-link="#">
+                    <img src="images/afternoon_05.jpg" alt="トロピカルカクテル">
+                    <span class="card-label">トロピカルカクテル</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_06.jpg" alt="">
-                    <span class="card-label">プールサイドでランチ</span>
+                <div class="card-item" 
+                     data-title="プールサイドランチ" 
+                     data-time="11:30 - 15:00 · pool side"
+                     data-desc="太陽と風を感じながら味わうシェフ特製のアジアン＆ラテンウエスタン料理。" 
+                     data-img="images/afternoon_06.jpg" 
+                     data-tags="ランチ,プールサイド,特製バーガー"
+                     data-link="#">
+                    <img src="images/afternoon_06.jpg" alt="プールサイドランチ">
+                    <span class="card-label">プールサイドランチ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_07.jpg" alt="">
-                    <span class="card-label">ラグジュアリーカー体験</span>
+                <div class="card-item" 
+                     data-title="オープンカーでドライブ" 
+                     data-time="9:00 - 18:00 · rental station"
+                     data-desc="上質な輸入ラグジュアリーカーで石垣島の美しい海沿いを軽快にドライブ。" 
+                     data-img="images/afternoon_07.jpg" 
+                     data-tags="レンタカー,オープンカー,要免許"
+                     data-link="#">
+                    <img src="images/afternoon_07.jpg" alt="オープンカーでドライブ">
+                    <span class="card-label">オープンカーでドライブ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_08.jpg" alt="">
-                    <span class="card-label">ワインリスト、お土産を選ぶ</span>
+                <div class="card-item" 
+                     data-title="こだわりのドリンク・リカー" 
+                     data-time="14:00 - 22:00 · Red. Bar"
+                     data-desc="世界中から厳選した銘酒やウイスキー、オーガニックワインが並ぶ特別なラウンジ。" 
+                     data-img="images/afternoon_08.jpg" 
+                     data-tags="ウイスキー,自然派ワイン,リカーサロン"
+                     data-link="#">
+                    <img src="images/afternoon_08.jpg" alt="こだわりのドリンク・リカー">
+                    <span class="card-label">こだわりのドリンク・リカー</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_09.jpg" alt="">
-                    <span class="card-label">石垣の自然を遊びきる</span>
+                <div class="card-item" 
+                     data-title="シュノーケリングで海へ" 
+                     data-time="13:00 - 16:00 · sea point"
+                     data-desc="透明度の極めて高い石垣の美ら海で、ウミガメやカラフルな熱帯魚に出会う。" 
+                     data-img="images/afternoon_09.jpg" 
+                     data-tags="シュノーケル,ウミガメ,ガイド付"
+                     data-link="#">
+                    <img src="images/afternoon_09.jpg" alt="シュノーケリングで海へ">
+                    <span class="card-label">シュノーケリングで海へ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/afternoon_10.jpg" alt="">
-                    <span class="card-label">ここだけのアートを楽しむ</span>
+                <div class="card-item" 
+                     data-title="アートに触れる滞在" 
+                     data-time="all day · gallery space"
+                     data-desc="新進気鋭のアーティストによるポップで洗練された作品が洗練された滞在を演出。" 
+                     data-img="images/afternoon_10.jpg" 
+                     data-tags="現代アート,写真作品,ギャラリー"
+                     data-link="#">
+                    <img src="images/afternoon_10.jpg" alt="アートに触れる滞在">
+                    <span class="card-label">アートに触れる滞在</span>
                 </div>
             </div>
         </section>
 
-        <!-- ③ night & entertainment セクション（10枚構成） -->
+        <!-- ③ 夜セクション -->
         <section class="experience-block">
-            <h2 class="block-title">ある1日の夜 ｜18:00 – 26:00</h2>
+            <h2 class="block-title">ある1日の夜 ｜ 18:00 - 24:00</h2>
             <div class="card-grid col-5">
-                <div class="card-item">
-                    <img src="images/night_01.jpg" alt="">
-                    <span class="card-label">プールに浸かったまま、バーで語らう</span>
+                <div class="card-item" 
+                     data-title="幻想的なナイトプール" 
+                     data-time="18:00 - 23:00 · night pool"
+                     data-desc="水中ライトと水中スピーカーが織りなす幻想的な光と音の世界。" 
+                     data-img="images/night_01.jpg" 
+                     data-tags="ナイトプール,水中照明,温水対応"
+                     data-link="#">
+                    <img src="images/night_01.jpg" alt="幻想的なナイトプール">
+                    <span class="card-label">幻想的なナイトプール</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_02.jpg" alt="">
-                    <span class="card-label">お部屋で好きに飲み、食べる</span>
+                <div class="card-item" 
+                     data-title="お部屋でワインを楽しむ" 
+                     data-time="18:00 - 24:00 · guest room"
+                     data-desc="夜風が心地よいプライベートバルコニーで、星空を見上げながらワインを嗜む。" 
+                     data-img="images/night_02.jpg" 
+                     data-tags="インルーム,自然派ワイン,プライベート"
+                     data-link="#">
+                    <img src="images/night_02.jpg" alt="お部屋でワインを楽しむ">
+                    <span class="card-label">お部屋でワインを楽しむ</span>
                 </div>
-                <div class="card-item">
+                <div class="card-item" 
+                     data-title="バーでドリンク＆シーシャ" 
+                     data-time="20:00 - 2:00 · Red. Bar"
+                     data-desc="ディープなレッドに包まれた大人のバーラウンジで特別なシーシャ体験。" 
+                     data-img="images/night_03.jpg" 
+                     data-tags="シーシャ,Red.,深夜営業"
+                     data-link="#">
                     <img src="images/night_03.jpg" alt="バーでドリンク＆シーシャ">
                     <span class="card-label">バーでドリンク＆シーシャ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_04.jpg" alt="">
-                    <span class="card-label">GIN、シーシャ、音楽に酔う</span>
+                <div class="card-item" 
+                     data-title="夜のジャグジー＆サウナ" 
+                     data-time="18:00 - 23:00 · spa area"
+                     data-desc="ライトダウンされたサウナと満天の星空を望む夜の外気浴で深まる整い。" 
+                     data-img="images/night_04.jpg" 
+                     data-tags="夜サウナ,外気浴,星空"
+                     data-link="#">
+                    <img src="images/night_04.jpg" alt="夜のジャグジー＆サウナ">
+                    <span class="card-label">夜のジャグジー＆サウナ</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_05.jpg" alt="">
+                <div class="card-item" 
+                     data-title="記念日ディナー" 
+                     data-time="17:30 - 22:00 · BATIDA"
+                     data-desc="シェフ渾身のフルコースで、大切な記念日を華やかに彩るアニバーサリーディナー。" 
+                     data-img="images/night_05.jpg" 
+                     data-tags="記念日,アニバーサリー,要予約"
+                     data-link="#">
+                    <img src="images/night_05.jpg" alt="記念日ディナー">
                     <span class="card-label">記念日ディナー</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_06.jpg" alt="">
-                    <span class="card-label">DJ Night at Red.</span>
+                <div class="card-item" 
+                     data-title="DJイベント" 
+                     data-time="21:00 - 24:00 · Lounge"
+                     data-desc="国内外から招致したゲストDJによる最先端の音空間イベント。" 
+                     data-img="images/night_06.jpg" 
+                     data-tags="DJ,ミュージック,Red."
+                     data-link="#">
+                    <img src="images/night_06.jpg" alt="DJイベント">
+                    <span class="card-label">DJイベント</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_07.jpg" alt="">
-                    <span class="card-label">カラオケ、ビリヤード</span>
+                <div class="card-item" 
+                     data-title="モダンラウンジで歓談" 
+                     data-time="18:00 - 23:00 · main lounge"
+                     data-desc="洗練されたインテリアが彩るラウンジで仲間たちと語り明かす夜。" 
+                     data-img="images/night_07.jpg" 
+                     data-tags="ラウンジ,カクテル,語らい"
+                     data-link="#">
+                    <img src="images/night_07.jpg" alt="モダンラウンジで歓談">
+                    <span class="card-label">モダンラウンジで歓談</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_08.jpg" alt="">
-                    <span class="card-label">水平線まで、星が続く夜</span>
+                <div class="card-item" 
+                     data-title="満天の星空を眺める" 
+                     data-time="21:00 - 23:00 · rooftop"
+                     data-desc="光害の少ない石垣島特有の天然のプラネタリウムで天の川を観賞。" 
+                     data-img="images/night_08.jpg" 
+                     data-tags="天の川,星空観察,ルーフトップ"
+                     data-link="#">
+                    <img src="images/night_08.jpg" alt="満天の星空を眺める">
+                    <span class="card-label">満天の星空を眺める</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_09.jpg" alt="">
+                <div class="card-item" 
+                     data-title="ファイヤーピットを囲んで" 
+                     data-time="19:00 - 22:00 · fire pit area"
+                     data-desc="揺らめく炎と薪の爆ぜる音に癒されながらあたたかな時間を過ごす。" 
+                     data-img="images/night_09.jpg" 
+                     data-tags="ファイヤーピット,暖炉,ドリンク手配可"
+                     data-link="#">
+                    <img src="images/night_09.jpg" alt="ファイヤーピットを囲んで">
                     <span class="card-label">ファイヤーピットを囲んで</span>
                 </div>
-                <div class="card-item">
-                    <img src="images/night_10.jpg" alt="">
-                    <span class="card-label">ナイトプール</span>
+                <div class="card-item" 
+                     data-title="ライトアッププール" 
+                     data-time="18:00 - 23:00 · pool side"
+                     data-desc="美しい水中光に浮かび上がるリゾート全景を眺めるラグジュアリーナイト。" 
+                     data-img="images/night_10.jpg" 
+                     data-tags="ライトアップ,絶景,ナイトタイム"
+                     data-link="#">
+                    <img src="images/night_10.jpg" alt="ライトアッププール">
+                    <span class="card-label">ライトアッププール</span>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- ★ モーダル画面（添付スクリーンショットの忠実再現UI） -->
+    <div id="modal-container" class="modal-overlay">
+        <div class="modal-card">
+            <!-- 閉じるボタン (右上丸ボタン) -->
+            <button id="modal-close" class="modal-close-circle" aria-label="閉じる">&times;</button>
+            
+            <!-- 背景画像エリア -->
+            <div class="modal-bg-img">
+                <img id="modal-img" src="" alt="モーダル画像">
+                <div class="modal-gradient-overlay"></div>
+            </div>
+
+            <!-- モーダルテキスト・コンテンツ情報 -->
+            <div class="modal-content-inner">
+                <div id="modal-time" class="modal-sub-info"></div>
+                <h3 id="modal-title" class="modal-main-title"></h3>
+                <p id="modal-desc" class="modal-description"></p>
+                
+                <!-- タグリスト -->
+                <div id="modal-tags" class="modal-tags-container"></div>
+                
+                <!-- View more ボタン -->
+                <a id="modal-link" class="modal-action-btn" href="#">View more &rarr;</a>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2026 seven × seven. All rights reserved.</p>
