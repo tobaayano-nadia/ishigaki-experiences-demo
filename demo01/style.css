@@ -82,7 +82,7 @@ main {
 }
 
 /* ==========================================================================
-   ギャラリーパネル（PC/SP共通：1行横スライド設定）
+   ★ PC・SP完全共通：1行横スライド ＆ 吸いつくスナップアニメーション
    ========================================================================== */
 .experience-block {
     margin-bottom: 60px;
@@ -96,27 +96,27 @@ main {
     color: #111;
 }
 
-/* 1行ごとに絶対固定する横スクロールコンテナ */
+/* 横1行カルーセルコンテナ */
 .card-grid {
     display: flex !important;
     flex-direction: row !important;
-    flex-wrap: nowrap !important;        /* 絶対に改行させない */
-    overflow-x: auto !important;         /* 横スクロール化 */
-    scroll-snap-type: x mandatory;       /* 1枚ずつ「カチッ」と吸い付くアニメーション */
-    scroll-behavior: smooth;
+    flex-wrap: nowrap !important;        /* 改行禁止 */
+    overflow-x: auto !important;         /* 横スクロール有効 */
+    scroll-snap-type: x mandatory !important; /* ★強力なスナップ吸着アニメーション */
+    scroll-behavior: smooth !important;  /* なめらかなアニメーション */
     -webkit-overflow-scrolling: touch;
     gap: 16px !important;
-    padding-bottom: 8px;
+    padding-bottom: 12px;
 }
 
-/* PC時の正方形カードサイズ */
+/* PC用カードサイズ（4〜5枚がチラ見えする正方形サイズ） */
 .card-item {
     position: relative;
-    width: 260px !important;            /* PC時の1枚あたりのカード横幅 */
+    width: 260px !important;            /* PC用カード横幅 */
     height: 260px !important;           /* アスペクト比1:1（正方形） */
-    flex-shrink: 0 !important;          /* 幅の潰れ防止 */
-    scroll-snap-align: start !important;/* スライダー停止位置 */
-    scroll-snap-stop: always !important;/* 1枚ずつ確実にピタッとストップ */
+    flex-shrink: 0 !important;          /* 幅つぶれ防止 */
+    scroll-snap-align: start !important;/* ★停止時に左端にカチッと止まる */
+    scroll-snap-stop: always !important;/* ★一気に滑らず1枚ずつ確実にストップ */
     overflow: hidden;
     background-color: #eee;
     cursor: pointer;
@@ -156,7 +156,7 @@ main {
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
-/* スクロールバー装飾 */
+/* スクロールバーのデザイン */
 .card-grid::-webkit-scrollbar {
     height: 6px;
 }
@@ -167,6 +167,9 @@ main {
 .card-grid::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 3px;
+}
+.card-grid::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }
 
 /* ==========================================================================
@@ -340,7 +343,7 @@ footer {
 }
 
 /* ==========================================================================
-   スマホ（SP）画面調整
+   スマホ（SP）表示：カードサイズのみ調整
    ========================================================================== */
 @media (max-width: 768px) {
     header {
@@ -360,7 +363,7 @@ footer {
         font-size: 32px;
     }
 
-    /* スマホ時の1枚あたりのカードサイズ（画面内で2枚目チラ見せ） */
+    /* スマホ画面用にカード幅を155pxに最適化 */
     .card-item {
         width: 155px !important;
         height: 155px !important;
