@@ -78,7 +78,7 @@ main {
 }
 
 /* ==========================================================================
-   PC版：正方形ギャラリーパネル（4列配置）
+   正方形ギャラリーパネル
    ========================================================================== */
 .experience-block {
     margin-bottom: 60px;
@@ -100,7 +100,7 @@ main {
 
 .card-item {
     position: relative;
-    aspect-ratio: 1 / 1; /* 正方形に固定 */
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     background-color: #eee;
     cursor: pointer;
@@ -118,7 +118,6 @@ main {
     transform: scale(1.06);
 }
 
-/* 画像下部の白文字グラデーションオーバーレイ */
 .card-item::after {
     content: '';
     position: absolute;
@@ -141,18 +140,18 @@ main {
 }
 
 /* ==========================================================================
-   モーダルウィンドウ（Pop-up）スタイル
+   ★ 画像添付のモーダルUI完全再現スタイリング
    ========================================================================== */
 .modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 2000;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -162,86 +161,149 @@ main {
     opacity: 1;
 }
 
-.modal-content {
+.modal-card {
     position: relative;
-    background-color: #fff;
     width: 100%;
-    max-width: 800px;
-    border-radius: 4px;
+    max-width: 780px;
+    height: 480px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    animation: modalUp 0.3s ease forwards;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    animation: modalScaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes modalUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes modalScaleUp {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
-.modal-close-btn {
+/* 丸形閉じるボタン */
+.modal-close-circle {
     position: absolute;
-    top: 12px;
-    right: 16px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #333;
-    cursor: pointer;
-    z-index: 10;
-    line-height: 1;
-}
-
-.modal-body {
+    top: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-size: 20px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    transition: background-color 0.2s ease;
+    backdrop-filter: blur(4px);
 }
 
-@media (min-width: 640px) {
-    .modal-body {
-        flex-direction: row;
-    }
+.modal-close-circle:hover {
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
-.modal-img-wrapper {
-    flex: 1.2;
-    background-color: #000;
-    max-height: 450px;
+/* 背景画像＆暗いグラデーション */
+.modal-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-.modal-img-wrapper img {
+.modal-bg-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.modal-info {
-    flex: 1;
-    padding: 30px 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.modal-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.3) 40%,
+        rgba(0, 0, 0, 0.85) 85%,
+        rgba(0, 0, 0, 0.95) 100%
+    );
 }
 
-.modal-info h3 {
-    font-size: 20px;
+/* モーダル内部コンテンツ */
+.modal-content-inner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 36px 40px;
+    z-index: 10;
+    color: #fff;
+}
+
+.modal-sub-info {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 8px;
+    font-weight: 300;
+}
+
+.modal-main-title {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     margin: 0 0 12px;
-    color: #111;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.modal-info p {
-    font-size: 14px;
-    color: #666;
-    margin: 0 0 24px;
-    line-height: 1.6;
+.modal-description {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 620px;
+    margin: 0 0 20px;
 }
 
-.modal-link-btn {
-    display: inline-block;
-    color: #111;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 14px;
+/* タグチップ群 */
+.modal-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.modal-tag-chip {
+    font-size: 11.5px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+}
+
+/* View more ボタン */
+.modal-action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 24px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.modal-action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
 }
 
 footer {
@@ -253,7 +315,7 @@ footer {
 }
 
 /* ==========================================================================
-   スマートフォン（SP）表示：上下2段組みのまま横スクロールカルーセル化
+   スマートフォン（SP）表示：2段カルーセル ＆ モーダルSP最適化
    ========================================================================== */
 @media (max-width: 768px) {
     header {
@@ -273,26 +335,25 @@ footer {
         font-size: 32px;
     }
 
-    /* 縦方向に折り返して上下2段にするコンテナ構成 */
+    /* SP用 2段カルーセル */
     .card-grid {
         display: flex !important;
-        flex-direction: column !important; /* 縦方向にアイテムを流す */
-        flex-wrap: wrap !important;       /* 横に溢れた分を右側に折り返す */
-        height: 360px !important;         /* ★縦2段分（正方形2つ＋間隔）の固定高さ */
-        overflow-x: auto !important;      /* 横スクロール有効 */
-        scroll-snap-type: x mandatory;    /* ピタッと1列ずつ止まる */
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        height: 360px !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         gap: 12px !important;
         padding-bottom: 15px;
     }
 
-    /* 上下2段（縦に2枚ずつ並ぶ列）のサイズ計算 */
     .card-item {
-        width: 45% !important;            /* 横幅45%にすることで右側がチラ見えする */
-        height: calc(50% - 6px) !important;/* 全体の高さを半分（2段）にする */
-        aspect-ratio: auto !important;     /* 自動調整 */
-        flex-shrink: 0 !important;        /* つぶれ防止 */
-        scroll-snap-align: start;         /* スワイプでカチッと止まる */
+        width: 45% !important;
+        height: calc(50% - 6px) !important;
+        aspect-ratio: auto !important;
+        flex-shrink: 0 !important;
+        scroll-snap-align: start;
     }
 
     .card-label {
@@ -302,12 +363,27 @@ footer {
         right: 10px;
     }
 
-    /* スクロールバーデザイン */
-    .card-grid::-webkit-scrollbar {
-        height: 4px;
+    /* SP用 モーダル画面調整 */
+    .modal-card {
+        height: 520px;
+        border-radius: 16px;
     }
-    .card-grid::-webkit-scrollbar-thumb {
-        background: #e0e0e0;
-        border-radius: 2px;
+
+    .modal-content-inner {
+        padding: 24px 20px;
+    }
+
+    .modal-main-title {
+        font-size: 22px;
+    }
+
+    .modal-description {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    .modal-tags-container {
+        margin-bottom: 18px;
     }
 }
